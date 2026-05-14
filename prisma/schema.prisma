@@ -1,0 +1,69 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+enum Role {
+  USER
+  ADMIN
+  SUPER_ADMIN
+}
+
+enum AnalysisStatus {
+  PENDING
+  COMPLETED
+  FAILED
+  MODEL_NOT_CONFIGURED
+}
+
+model User {
+  id            String          @id @default(uuid()) @db.Uuid
+  name          String?
+  email         String          @unique
+  passwordHash  String
+  role          Role            @default(USER)
+  analyses      Analysis[]
+  modelFeedback ModelFeedback[]
+  createdAt     DateTime        @default(now())
+  updatedAt     DateTime        @updatedAt
+}
+
+model Analysis {
+  id            String          @id @default(uuid()) @db.Uuid
+  userId        String          @db.Uuid
+  inputData     Json
+  modelOutput   Json?
+  status        AnalysisStatus  @default(PENDING)
+  errorMessage  String?
+  user          User            @relation(fields: [userId], references: [id], onDelete: Cascade)
+  modelFeedback ModelFeedback[]
+  createdAt     DateTime        @default(now())
+
+  @@index([userId])
+}
+
+model ModelFeedback {
+  id         String    @id @default(uuid()) @db.Uuid
+  userId     String    @db.Uuid
+  analysisId String?   @db.Uuid
+  rating     Int
+  comment    String?
+  user       User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+  analysis   Analysis? @relation(fields: [analysisId], references: [id], onDelete: SetNull)
+  createdAt  DateTime  @default(now())
+
+  @@index([userId])
+  @@index([analysisId])
+}
+
+model ModelConfig {
+  id                String   @id @default(uuid()) @db.Uuid
+  modelName         String
+  huggingFaceApiUrl String?
+  isActive          Boolean  @default(false)
+  createdAt         DateTime @default(now())
+  updatedAt         DateTime @updatedAt
+}

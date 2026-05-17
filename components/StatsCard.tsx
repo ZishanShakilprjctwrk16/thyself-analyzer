@@ -18,7 +18,7 @@ export default function StatsCard({
   accent?: Accent;
 }) {
   return (
-    <article className="rounded-lg border border-white/10 bg-slate-900/70 p-5 shadow-xl shadow-black/20">
+    <article className="rounded-lg border border-white/10 bg-slate-900/70 p-5 shadow-xl shadow-black/20 transition hover:-translate-y-0.5 hover:border-white/20">
       <div
         className={`mb-5 inline-flex rounded-lg border px-3 py-1 text-xs font-bold ${accentStyles[accent]}`}
       >

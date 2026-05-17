@@ -17,7 +17,7 @@ export default function ModelStatus() {
         <div>
           <h2 className="text-lg font-bold text-white">Model Status</h2>
           <p className="mt-1 text-sm text-slate-400">
-            Phase 1 readiness overview.
+            Phase readiness overview.
           </p>
         </div>
         <span className="rounded-lg border border-cyan-300/25 bg-cyan-300/10 px-3 py-1 text-xs font-bold text-cyan-200">

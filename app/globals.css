@@ -20,6 +20,14 @@ body {
   font-family: Arial, Helvetica, sans-serif;
 }
 
+a,
+button,
+input,
+textarea {
+  outline-color: #22d3ee;
+  outline-offset: 3px;
+}
+
 ::selection {
   background: #22d3ee;
   color: #020617;

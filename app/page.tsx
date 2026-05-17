@@ -1,5 +1,12 @@
+import type { Metadata } from "next";
 import Hero from "@/components/Hero";
 import ModelStatus from "@/components/ModelStatus";
+
+export const metadata: Metadata = {
+  title: "Thyself Analyzer | Behavioral Insight Platform",
+  description:
+    "AI-powered personality and productivity insights from digital behavior.",
+};
 
 const features = [
   {

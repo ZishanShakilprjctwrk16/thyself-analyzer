@@ -1,6 +1,14 @@
+import type { Metadata } from "next";
 import DashboardSidebar from "@/components/DashboardSidebar";
+import EmptyState from "@/components/EmptyState";
 import ModelStatus from "@/components/ModelStatus";
+import PageHeader from "@/components/PageHeader";
 import StatsCard from "@/components/StatsCard";
+
+export const metadata: Metadata = {
+  title: "Dashboard | Thyself Analyzer",
+  description: "Static dashboard foundation for Thyself Analyzer.",
+};
 
 export default function DashboardPage() {
   return (
@@ -8,47 +16,48 @@ export default function DashboardPage() {
       <DashboardSidebar active="dashboard" />
 
       <section className="min-w-0">
-        <div className="mb-6">
-          <p className="text-sm font-bold uppercase text-cyan-300">
-            Dashboard
-          </p>
-          <h1 className="mt-2 text-3xl font-black text-white sm:text-4xl">
-            Phase 1 overview
-          </h1>
-          <p className="mt-3 max-w-2xl text-sm leading-6 text-slate-400">
-            These cards are static placeholders for the future product
-            dashboard.
-          </p>
-        </div>
+        <PageHeader
+          badge="Dashboard"
+          description="A static product dashboard shell for Phase 2. Data-backed activity, history, and model results will appear only after the database and AI phases are wired."
+          title="Workspace overview"
+        />
 
         <div className="grid gap-4 sm:grid-cols-2 xl:grid-cols-4">
           <StatsCard
             accent="cyan"
-            description="No database is connected in Phase 1."
+            description="No saved records are displayed until database-backed workflows are connected."
             title="Total Analyses"
             value="0"
           />
           <StatsCard
             accent="violet"
-            description="AI model integration is planned for a later phase."
+            description="The Hugging Face model integration is intentionally not connected yet."
             title="Model Status"
             value="Pending"
           />
           <StatsCard
             accent="emerald"
-            description="Activity records will appear after data storage exists."
+            description="Activity will populate after real analysis submissions exist."
             title="Recent Activity"
             value="None"
           />
           <StatsCard
             accent="cyan"
-            description="Feedback collection will be added in Phase 4."
+            description="Feedback collection remains a future phase."
             title="Feedback Given"
             value="0"
           />
         </div>
 
-        <div className="mt-6">
+        <div className="mt-6 grid gap-6 xl:grid-cols-[1fr_420px]">
+          <EmptyState
+            actionHref="/analyze"
+            actionLabel="Preview analysis shell"
+            description="The dashboard is ready for future data, but it does not invent activity or AI outputs. Once analysis storage exists, this area can become the recent activity feed."
+            eyebrow="Empty state"
+            title="No analyses yet"
+            tone="cyan"
+          />
           <ModelStatus />
         </div>
       </section>

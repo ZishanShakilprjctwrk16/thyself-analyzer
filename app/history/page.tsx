@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import PageShell from "@/components/layout/PageShell";
 import DashboardSidebar from "@/components/DashboardSidebar";
 import EmptyState from "@/components/EmptyState";
 import PageHeader from "@/components/PageHeader";
@@ -10,9 +11,7 @@ export const metadata: Metadata = {
 
 export default function HistoryPage() {
   return (
-    <main className="mx-auto grid max-w-7xl gap-6 px-5 py-10 sm:px-6 lg:grid-cols-[260px_1fr] lg:px-8">
-      <DashboardSidebar active="history" />
-
+    <PageShell sidebar={<DashboardSidebar active="history" />}>
       <section className="min-w-0">
         <PageHeader
           accent="violet"
@@ -29,6 +28,6 @@ export default function HistoryPage() {
           tone="violet"
         />
       </section>
-    </main>
+    </PageShell>
   );
 }

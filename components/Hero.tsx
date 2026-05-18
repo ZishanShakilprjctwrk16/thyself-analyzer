@@ -1,4 +1,5 @@
-import Link from "next/link";
+import { ButtonLink } from "@/components/ui/Button";
+import { appName, currentPhase, tagline } from "@/lib/project";
 
 export default function Hero() {
   return (
@@ -13,27 +14,24 @@ export default function Hero() {
           </p>
 
           <h1 className="text-5xl font-black leading-tight text-white sm:text-6xl lg:text-7xl">
-            Thyself Analyzer
+            {appName}
           </h1>
 
           <p className="mt-6 max-w-2xl text-lg leading-8 text-slate-300 sm:text-xl">
-            AI-powered personality and productivity insights from digital
-            behavior.
+            {tagline}
           </p>
 
           <div className="mt-9 flex flex-col gap-3 sm:flex-row">
-            <Link
-              className="rounded-lg bg-cyan-400 px-7 py-4 text-center text-base font-bold text-slate-950 shadow-xl shadow-cyan-950/40 transition hover:bg-cyan-300"
-              href="/analyze"
-            >
+            <ButtonLink className="px-7 py-4 text-base" href="/analyze">
               Start Analysis
-            </Link>
-            <Link
-              className="rounded-lg border border-white/15 bg-white/10 px-7 py-4 text-center text-base font-bold text-white transition hover:bg-white/15"
+            </ButtonLink>
+            <ButtonLink
+              className="border-white/15 bg-white/10 px-7 py-4 text-base hover:bg-white/15"
               href="/about"
+              variant="secondary"
             >
               Learn More
-            </Link>
+            </ButtonLink>
           </div>
         </div>
 
@@ -43,10 +41,10 @@ export default function Hero() {
             <div className="flex items-center justify-between border-b border-white/10 pb-4">
               <div>
                 <p className="text-sm font-semibold text-white">
-                  Phase 1 foundation
+                  {currentPhase}
                 </p>
                 <p className="mt-1 text-xs text-slate-400">
-                  Static UI shell only
+                  Static UI and database foundation
                 </p>
               </div>
               <div className="h-12 w-12 rounded-lg border border-violet-300/30 bg-violet-300/15" />

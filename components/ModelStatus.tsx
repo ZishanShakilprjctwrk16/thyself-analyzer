@@ -1,9 +1,5 @@
-const statusItems = [
-  { label: "Frontend", value: "Ready", tone: "ready" },
-  { label: "Database", value: "Pending", tone: "pending" },
-  { label: "Authentication", value: "Pending", tone: "pending" },
-  { label: "AI Model", value: "Pending", tone: "pending" },
-];
+import Card from "@/components/ui/Card";
+import { modelStatusItems } from "@/lib/project";
 
 const toneStyles = {
   ready: "border-emerald-300/30 bg-emerald-300/10 text-emerald-200",
@@ -12,7 +8,7 @@ const toneStyles = {
 
 export default function ModelStatus() {
   return (
-    <section className="rounded-lg border border-white/10 bg-slate-900/70 p-5 shadow-xl shadow-black/20">
+    <Card className="p-5 sm:p-5">
       <div className="flex items-start justify-between gap-4">
         <div>
           <h2 className="text-lg font-bold text-white">Model Status</h2>
@@ -26,7 +22,7 @@ export default function ModelStatus() {
       </div>
 
       <div className="mt-5 grid gap-3">
-        {statusItems.map((item) => (
+        {modelStatusItems.map((item) => (
           <div
             className="flex items-center justify-between gap-4 rounded-lg border border-white/10 bg-white/5 p-3"
             key={item.label}
@@ -44,6 +40,6 @@ export default function ModelStatus() {
           </div>
         ))}
       </div>
-    </section>
+    </Card>
   );
 }

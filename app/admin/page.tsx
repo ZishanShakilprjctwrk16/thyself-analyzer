@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import PageShell from "@/components/layout/PageShell";
 import AdminSidebar from "@/components/AdminSidebar";
 import EmptyState from "@/components/EmptyState";
 import ModelStatus from "@/components/ModelStatus";
@@ -11,9 +12,7 @@ export const metadata: Metadata = {
 
 export default function AdminPage() {
   return (
-    <main className="mx-auto grid max-w-7xl gap-6 px-5 py-10 sm:px-6 lg:grid-cols-[260px_1fr] lg:px-8">
-      <AdminSidebar />
-
+    <PageShell sidebar={<AdminSidebar />}>
       <section className="grid min-w-0 gap-6">
         <PageHeader
           accent="violet"
@@ -32,6 +31,6 @@ export default function AdminPage() {
           <ModelStatus />
         </div>
       </section>
-    </main>
+    </PageShell>
   );
 }

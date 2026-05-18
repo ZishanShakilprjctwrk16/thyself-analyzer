@@ -1,9 +1,11 @@
 import type { Metadata } from "next";
+import PageShell from "@/components/layout/PageShell";
 import DashboardSidebar from "@/components/DashboardSidebar";
 import EmptyState from "@/components/EmptyState";
 import ModelStatus from "@/components/ModelStatus";
 import PageHeader from "@/components/PageHeader";
 import StatsCard from "@/components/StatsCard";
+import { dashboardStats } from "@/lib/project";
 
 export const metadata: Metadata = {
   title: "Dashboard | Thyself Analyzer",
@@ -12,9 +14,7 @@ export const metadata: Metadata = {
 
 export default function DashboardPage() {
   return (
-    <main className="mx-auto grid max-w-7xl gap-6 px-5 py-10 sm:px-6 lg:grid-cols-[260px_1fr] lg:px-8">
-      <DashboardSidebar active="dashboard" />
-
+    <PageShell sidebar={<DashboardSidebar active="dashboard" />}>
       <section className="min-w-0">
         <PageHeader
           badge="Dashboard"
@@ -23,30 +23,15 @@ export default function DashboardPage() {
         />
 
         <div className="grid gap-4 sm:grid-cols-2 xl:grid-cols-4">
-          <StatsCard
-            accent="cyan"
-            description="No saved records are displayed until database-backed workflows are connected."
-            title="Total Analyses"
-            value="0"
-          />
-          <StatsCard
-            accent="violet"
-            description="The Hugging Face model integration is intentionally not connected yet."
-            title="Model Status"
-            value="Pending"
-          />
-          <StatsCard
-            accent="emerald"
-            description="Activity will populate after real analysis submissions exist."
-            title="Recent Activity"
-            value="None"
-          />
-          <StatsCard
-            accent="cyan"
-            description="Feedback collection remains a future phase."
-            title="Feedback Given"
-            value="0"
-          />
+          {dashboardStats.map((stat) => (
+            <StatsCard
+              accent={stat.accent}
+              description={stat.description}
+              key={stat.title}
+              title={stat.title}
+              value={stat.value}
+            />
+          ))}
         </div>
 
         <div className="mt-6 grid gap-6 xl:grid-cols-[1fr_420px]">
@@ -61,6 +46,6 @@ export default function DashboardPage() {
           <ModelStatus />
         </div>
       </section>
-    </main>
+    </PageShell>
   );
 }

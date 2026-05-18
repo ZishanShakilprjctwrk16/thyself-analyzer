@@ -2,15 +2,9 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-
-const navItems = [
-  { label: "About", href: "/about" },
-  { label: "Dashboard", href: "/dashboard" },
-  { label: "Analyze", href: "/analyze" },
-  { label: "History", href: "/history" },
-  { label: "Feedback", href: "/feedback" },
-  { label: "Admin", href: "/admin" },
-];
+import { appName, currentPhase } from "@/lib/project";
+import { authNavItems, mainNavItems } from "@/lib/navigation";
+import { cn } from "@/lib/styles";
 
 export default function Navbar() {
   const pathname = usePathname();
@@ -25,26 +19,27 @@ export default function Navbar() {
             </span>
             <span>
               <span className="block text-base font-bold text-white">
-                Thyself Analyzer
+                {appName}
               </span>
               <span className="hidden text-xs text-slate-400 sm:block">
-                Phase 2 foundation
+                {currentPhase}
               </span>
             </span>
           </Link>
 
           <nav className="hidden items-center gap-1 md:flex">
-            {navItems.map((item) => {
+            {mainNavItems.map((item) => {
               const isActive = pathname === item.href;
 
               return (
                 <Link
                   aria-current={isActive ? "page" : undefined}
-                  className={`rounded-lg px-3 py-2 text-sm font-medium transition ${
+                  className={cn(
+                    "rounded-lg px-3 py-2 text-sm font-medium transition",
                     isActive
                       ? "bg-white text-slate-950"
-                      : "text-slate-300 hover:bg-white/10 hover:text-white"
-                  }`}
+                      : "text-slate-300 hover:bg-white/10 hover:text-white",
+                  )}
                   href={item.href}
                   key={item.href}
                 >
@@ -55,39 +50,45 @@ export default function Navbar() {
           </nav>
 
           <div className="hidden items-center gap-2 sm:flex">
-            <Link
-              aria-current={pathname === "/login" ? "page" : undefined}
-              className={`rounded-lg border px-4 py-2 text-sm font-semibold transition ${
-                pathname === "/login"
-                  ? "border-cyan-300/40 bg-cyan-300/10 text-cyan-100"
-                  : "border-white/10 text-slate-200 hover:bg-white/10"
-              }`}
-              href="/login"
-            >
-              Login
-            </Link>
-            <Link
-              aria-current={pathname === "/register" ? "page" : undefined}
-              className="rounded-lg bg-cyan-400 px-4 py-2 text-sm font-bold text-slate-950 transition hover:bg-cyan-300"
-              href="/register"
-            >
-              Register
-            </Link>
+            {authNavItems.map((item, index) => {
+              const isActive = pathname === item.href;
+              const isPrimary = index === authNavItems.length - 1;
+
+              return (
+                <Link
+                  aria-current={isActive ? "page" : undefined}
+                  className={cn(
+                    "rounded-lg px-4 py-2 text-sm font-semibold transition",
+                    isPrimary
+                      ? "bg-cyan-400 text-slate-950 hover:bg-cyan-300"
+                      : "border border-white/10 text-slate-200 hover:bg-white/10",
+                    isActive &&
+                      !isPrimary &&
+                      "border-cyan-300/40 bg-cyan-300/10 text-cyan-100",
+                  )}
+                  href={item.href}
+                  key={item.href}
+                >
+                  {item.label}
+                </Link>
+              );
+            })}
           </div>
         </div>
 
         <nav className="flex gap-2 overflow-x-auto pb-1 md:hidden">
-          {[...navItems, { label: "Login", href: "/login" }].map((item) => {
+          {[...mainNavItems, authNavItems[0]].map((item) => {
             const isActive = pathname === item.href;
 
             return (
               <Link
                 aria-current={isActive ? "page" : undefined}
-                className={`shrink-0 rounded-lg border px-3 py-2 text-sm font-medium transition ${
+                className={cn(
+                  "shrink-0 rounded-lg border px-3 py-2 text-sm font-medium transition",
                   isActive
                     ? "border-cyan-300 bg-cyan-300 text-slate-950"
-                    : "border-white/10 text-slate-300 hover:bg-white/10"
-                }`}
+                    : "border-white/10 text-slate-300 hover:bg-white/10",
+                )}
                 href={item.href}
                 key={item.href}
               >

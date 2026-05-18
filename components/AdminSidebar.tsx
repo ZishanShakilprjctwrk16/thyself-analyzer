@@ -2,13 +2,8 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-
-const adminItems = [
-  { label: "Admin Overview", href: "/admin" },
-  { label: "Model Readiness", href: "/admin" },
-  { label: "User Feedback", href: "/admin" },
-  { label: "System Notes", href: "/admin" },
-];
+import { adminNavItems } from "@/lib/navigation";
+import { cn } from "@/lib/styles";
 
 export default function AdminSidebar() {
   const pathname = usePathname();
@@ -19,17 +14,18 @@ export default function AdminSidebar() {
         Admin
       </p>
       <nav className="mt-4 grid gap-2">
-        {adminItems.map((item, index) => {
+        {adminNavItems.map((item, index) => {
           const isActive = pathname === item.href && index === 0;
 
           return (
             <Link
               aria-current={isActive ? "page" : undefined}
-              className={`rounded-lg px-3 py-3 text-sm font-semibold transition ${
+              className={cn(
+                "rounded-lg px-3 py-3 text-sm font-semibold transition",
                 isActive
                   ? "bg-violet-400 text-slate-950"
-                  : "text-slate-300 hover:bg-white/10 hover:text-white"
-              }`}
+                  : "text-slate-300 hover:bg-white/10 hover:text-white",
+              )}
               href={item.href}
               key={item.label}
             >

@@ -1,12 +1,8 @@
-import Link from "next/link";
+import { ButtonLink } from "@/components/ui/Button";
+import Badge from "@/components/ui/Badge";
+import Card from "@/components/ui/Card";
 
 type Tone = "cyan" | "violet" | "emerald";
-
-const toneStyles: Record<Tone, string> = {
-  cyan: "border-cyan-300/25 bg-cyan-300/10 text-cyan-200",
-  violet: "border-violet-300/25 bg-violet-300/10 text-violet-200",
-  emerald: "border-emerald-300/25 bg-emerald-300/10 text-emerald-200",
-};
 
 export default function EmptyState({
   eyebrow,
@@ -24,12 +20,10 @@ export default function EmptyState({
   tone?: Tone;
 }) {
   return (
-    <section className="rounded-lg border border-white/10 bg-slate-900/70 p-6 shadow-xl shadow-black/20 sm:p-8">
-      <div
-        className={`mb-5 inline-flex rounded-lg border px-3 py-1 text-xs font-bold uppercase ${toneStyles[tone]}`}
-      >
+    <Card>
+      <Badge className="mb-5" tone={tone}>
         {eyebrow}
-      </div>
+      </Badge>
       <div className="grid gap-6 lg:grid-cols-[1fr_220px] lg:items-center">
         <div>
           <h2 className="text-2xl font-black text-white sm:text-3xl">
@@ -39,12 +33,13 @@ export default function EmptyState({
             {description}
           </p>
           {actionHref && actionLabel ? (
-            <Link
-              className="mt-6 inline-flex rounded-lg border border-white/10 px-4 py-3 text-sm font-bold text-white transition hover:bg-white/10"
+            <ButtonLink
+              className="mt-6"
               href={actionHref}
+              variant="secondary"
             >
               {actionLabel}
-            </Link>
+            </ButtonLink>
           ) : null}
         </div>
 
@@ -62,6 +57,6 @@ export default function EmptyState({
           </div>
         </div>
       </div>
-    </section>
+    </Card>
   );
 }

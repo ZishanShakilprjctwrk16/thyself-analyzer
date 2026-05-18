@@ -2,15 +2,8 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-
-type DashboardSection = "dashboard" | "analyze" | "history" | "feedback";
-
-const items: Array<{ label: string; href: string; id: DashboardSection }> = [
-  { label: "Overview", href: "/dashboard", id: "dashboard" },
-  { label: "Analyze", href: "/analyze", id: "analyze" },
-  { label: "History", href: "/history", id: "history" },
-  { label: "Feedback", href: "/feedback", id: "feedback" },
-];
+import { dashboardNavItems, type DashboardSection } from "@/lib/navigation";
+import { cn } from "@/lib/styles";
 
 export default function DashboardSidebar({
   active = "dashboard",
@@ -25,17 +18,18 @@ export default function DashboardSidebar({
         Workspace
       </p>
       <nav className="mt-4 grid gap-2">
-        {items.map((item) => {
+        {dashboardNavItems.map((item) => {
           const isActive = pathname === item.href || active === item.id;
 
           return (
             <Link
               aria-current={isActive ? "page" : undefined}
-              className={`rounded-lg px-3 py-3 text-sm font-semibold transition ${
+              className={cn(
+                "rounded-lg px-3 py-3 text-sm font-semibold transition",
                 isActive
                   ? "bg-cyan-400 text-slate-950"
-                  : "text-slate-300 hover:bg-white/10 hover:text-white"
-              }`}
+                  : "text-slate-300 hover:bg-white/10 hover:text-white",
+              )}
               href={item.href}
               key={item.id}
             >

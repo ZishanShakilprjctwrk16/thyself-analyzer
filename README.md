@@ -10,6 +10,13 @@ Phase 1 added the project structure, responsive navigation, static pages, reusab
 
 Phase 2 adds PostgreSQL database support with Prisma ORM, including the schema, generated Prisma client setup, and environment variable template. It does not include login/register logic, admin logic, AI model logic, rule-based predictions, Hugging Face integration, or generated model outputs.
 
+The frontend also includes a reusable UI foundation for future phases:
+
+- `components/ui`: shared card, badge, button, form field, and notice primitives
+- `components/layout`: shared page shell layouts
+- `lib/project.ts`: shared product copy, phase status, roadmap, and placeholder data
+- `lib/navigation.ts`: shared navigation definitions
+
 ## Tech Stack
 
 - Next.js App Router
